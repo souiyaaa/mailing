@@ -48,6 +48,9 @@ jobs:
           ssh-private-key: ${{ secrets.SERVER_KEY }}
           
       # 8️⃣ Upload and extract on server (FIXED EXTRACTION)
+# ... (Steps 1 through 7 remain the same)
+
+      # 8️⃣ Upload and extract on server (FIXED: Use 7z for robust extraction)
       - name: Upload and extract on server
         run: |
           # Upload the zip file
@@ -58,8 +61,8 @@ jobs:
             # Navigate to the web root
             cd /home/${{ secrets.SERVER_USERNAME }}/web/surya.pakevan.web.id/public_html &&
             
-            # Use 'jar xf' for robust extraction and overwrite (-o is not needed for jar)
-            jar xf /home/${{ secrets.SERVER_USERNAME }}/deploy.zip &&
+            # Use '7z x' for robust extraction and overwrite
+            7z x /home/${{ secrets.SERVER_USERNAME }}/deploy.zip &&
             
             # Clean up and optimize
             rm /home/${{ secrets.SERVER_USERNAME }}/deploy.zip &&
